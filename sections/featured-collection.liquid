@@ -81,18 +81,6 @@
         role="list"
         aria-label="{{ 'general.slider.name' | t }}">
         {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
-          {% comment %}
-          ====> Start <===
-          Ignore Products that has Hidden tag
-          {% endcomment %}
-          {% assign hidden_tag = 'HIDDEN' %}
-          {% if product.tags contains hidden_tag %}
-            {% continue %}
-          {% endif %}
-          {% comment %}
-          ====> END <===
-          Ignore Products that has Hidden tag
-          {% endcomment %}
           <li
             id="Slide-{{ section.id }}-{{ forloop.index }}"
             class="grid__item{% if show_mobile_slider or show_desktop_slider %} slider__slide{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
