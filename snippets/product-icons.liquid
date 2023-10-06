@@ -1,0 +1,31 @@
+{% comment %} 
+{% render 'product-icons', product: product, block: block %}
+
+================================================================
+Style sheet jas been added in main-product.liquid File
+================================================================
+{% endcomment %}
+
+{% liquid
+  assign productIcons = product.metafields.custom.product_icons.value
+%}
+
+<div class="product__product-icons">
+  <div class="product-icons__list grid grid--4-col">
+    {% for icon in productIcons %}
+      <div class="product-icons__list-item grid__item scroll-trigger animate--slide-in">
+        <div class="global-media-settings media" style="padding-bottom: {{ 1 | divided_by: icon.aspect_ratio | times: 100 }}%;">
+          {%- assign widths = '165, 360, 535, 750, 1070, 1500' -%}
+          {%- capture sizes -%}
+            (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,
+            (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
+          {%- endcapture -%}
+          {{
+             icon
+           | image_url: width: 1500
+           | image_tag: loading: 'lazy', sizes: sizes, widths: widths }}
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>

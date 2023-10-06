@@ -934,6 +934,10 @@ summary::-webkit-details-marker {
   width: calc(33.33% - var(--grid-mobile-horizontal-spacing) * 2 / 3);
 }
 
+.grid.grid--4-col .grid__item {
+  width: calc(25% - var(--grid-desktop-horizontal-spacing) * 3 / 4);
+}
+
 @media screen and (min-width: 750px) {
   .grid--3-col .grid__item {
     width: calc(33.33% - var(--grid-desktop-horizontal-spacing) * 2 / 3);

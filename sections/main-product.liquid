@@ -5,6 +5,7 @@
 >
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
+  {{ 'component-product-icons.css' | asset_url | stylesheet_tag }}
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
   {{ 'component-rating.css' | asset_url | stylesheet_tag }}
@@ -432,6 +433,11 @@
               {% render 'icon-with-text',
                 block: block
               %}
+            {%- when 'product-icons' -%}
+              {% render 'product-icons',
+                product: product,
+                block: block
+              %}
           {%- endcase -%}
         {%- endfor -%}
         <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -613,6 +619,11 @@
     {
       "type": "title",
       "name": "t:sections.main-product.blocks.title.name",
+      "limit": 1
+    },
+    {
+      "type": "product-icons",
+      "name": "t:sections.main-product.blocks.product-icons.name",
       "limit": 1
     },
     {
