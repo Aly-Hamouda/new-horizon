@@ -2,3 +2,52 @@
     background-color: transparent;
     border: 0;
 }
+
+.product-form__input-color{
+    --border-radius: 50%;
+}
+
+.product-form__input-color input[type=radio]+label,
+.product-form__input-color input[type=radio]+label .swatch{
+    border-radius: var(--border-radius);
+}
+
+.product-form__input-color input[type=radio]+label {
+    padding: 1.1rem;
+    border: var(--variant-pills-border-width) solid rgba(0, 0, 0, 0.2);
+    transition: all 0.35s ease-in-out;
+}
+
+.product-form__input-color input[type=radio]:checked+label{
+    border: calc(var(--variant-pills-border-width) + 0.5px) solid rgba(0, 0, 0, 1);
+    background-color: transparent;
+}
+
+.product-form__input-color input[type=radio]+label .swatch{
+    position: absolute;
+    left: 2px;
+    top: 2px;
+    width: calc(100% - 4px);
+    height: calc(100% - 4px);
+    border-radius: 50%;
+}
+
+.product-form__input input[type=radio].disabled+label{
+    pointer-events: none;
+}
+
+.product-form__input-color input[type=radio].disabled+label:after{
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 0px;
+    width: 1px;
+    height: calc(100% - 0px);
+    background-color: rgba(0, 0, 0, 0.6);
+    transform: rotate(45deg);
+    transition: all 0.35s ease-in-out;
+}
+
+.product-form__input-color input[type=radio].disabled:checked+label:after{
+    background-color: rgba(0, 0, 0, 1);
+}

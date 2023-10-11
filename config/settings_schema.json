@@ -1455,5 +1455,27 @@
         "info": "t:settings_schema.cart.settings.cart_drawer.collection.info"
       }
     ]
+  },
+  {
+    "name": "Color Swatches",
+    "settings": [
+      {
+        "type": "header",
+        "content": "t:settings_schema.color_swatches.settings.content"
+      },
+      {
+        "type": "paragraph",
+        "content": "t:settings_schema.color_swatches.settings.paragraph"
+      },
+      {
+        "type": "paragraph",
+        "content": "t:settings_schema.color_swatches.settings.paragraph2"
+      },
+      {
+        "type": "textarea",
+        "id": "color_swatches_colors",
+        "label": "t:settings_schema.color_swatches.settings.color_swatches_colors.label"
+      }
+    ]
   }
 ]
