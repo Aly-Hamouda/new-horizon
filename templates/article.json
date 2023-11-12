@@ -23,8 +23,7 @@
           }
         },
         "content": {
-          "type": "content",
-          "settings": {}
+          "type": "content"
         }
       },
       "block_order": [
@@ -32,8 +31,7 @@
         "title",
         "share",
         "content"
-      ],
-      "settings": {}
+      ]
     }
   },
   "order": [

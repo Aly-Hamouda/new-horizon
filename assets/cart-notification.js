@@ -42,6 +42,7 @@ class CartNotification extends HTMLElement {
         section.selector
       );
     });
+
     if (this.header) this.header.reveal();
     this.open();
   }
