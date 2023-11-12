@@ -21,18 +21,31 @@
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
-            "picker_type": "button"
+            "picker_type": "button",
+            "pill_active_bg_color": "#b43333",
+            "pill_active_text_color": "#ffffff",
+            "pill_bg_color": "#ffffff",
+            "pill_text_color": "#000000",
+            "show_size_chart": true
           }
         },
         "quantity_selector": {
           "type": "quantity_selector",
           "settings": {}
         },
+        "df37341b-8c36-4616-898c-d3d4cf31a38f": {
+          "type": "product-icons",
+          "settings": {}
+        },
         "buy_buttons": {
           "type": "buy_buttons",
           "settings": {
             "show_dynamic_checkout": true,
-            "show_gift_card_recipient": false
+            "show_gift_card_recipient": false,
+            "atc_bg_color": "#000000",
+            "atc_text_color": "#ffffff",
+            "checkout_bg_color": "#1773b0",
+            "checkout_text_color": "#ffffff"
           }
         },
         "description": {
@@ -44,6 +57,20 @@
           "settings": {
             "share_label": "Share"
           }
+        },
+        "d49cae76-1b41-49b0-abab-5d1f7cfc4fe1": {
+          "type": "size-chart",
+          "settings": {
+            "product_tag": "aly-jacket",
+            "page": "coats-jackets-size-chart"
+          }
+        },
+        "1ea4ba9d-16ae-44ee-928c-32ab024c6a5b": {
+          "type": "size-chart",
+          "settings": {
+            "product_tag": "aly-shirts",
+            "page": "shirts-tops-size-chart"
+          }
         }
       },
       "block_order": [
@@ -52,9 +79,12 @@
         "price",
         "variant_picker",
         "quantity_selector",
+        "df37341b-8c36-4616-898c-d3d4cf31a38f",
         "buy_buttons",
         "description",
-        "share"
+        "share",
+        "d49cae76-1b41-49b0-abab-5d1f7cfc4fe1",
+        "1ea4ba9d-16ae-44ee-928c-32ab024c6a5b"
       ],
       "settings": {
         "enable_sticky_info": true,
@@ -64,8 +94,8 @@
         "gallery_layout": "stacked",
         "media_position": "left",
         "image_zoom": "lightbox",
-        "mobile_thumbnails": "columns",
-        "hide_variants": true,
+        "mobile_thumbnails": "show",
+        "hide_variants": false,
         "enable_video_looping": true,
         "padding_top": 36,
         "padding_bottom": 12

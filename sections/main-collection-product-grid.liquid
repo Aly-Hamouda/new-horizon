@@ -155,19 +155,6 @@
               "
             >
               {%- for product in collection.products -%}
-                {% comment %}
-                  ====> Start <===
-                  Ignore Products that has Hidden tag
-                {% endcomment %}
-                {% assign hidden_tag = 'HIDDEN' %}
-                {% if product.tags contains hidden_tag %}
-                  {% continue %}
-                {% endif %}
-                {% comment %}
-                  ====> END <===
-                  Ignore Products that has Hidden tag
-                {% endcomment %}
-
                 {% assign lazy_load = false %}
                 {%- if forloop.index > 2 -%}
                   {%- assign lazy_load = true -%}

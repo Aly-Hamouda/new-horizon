@@ -4,6 +4,7 @@
   data-section="{{ section.id }}"
 >
   {{ 'section-main-product.css' | asset_url | stylesheet_tag }}
+  {{ 'custom-section-main-product.css' | asset_url | stylesheet_tag }}
   {{ 'component-accordion.css' | asset_url | stylesheet_tag }}
   {{ 'component-price.css' | asset_url | stylesheet_tag }}
   {{ 'component-slider.css' | asset_url | stylesheet_tag }}
@@ -15,6 +16,15 @@
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
       padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    }
+
+    {% assign variant_picker_block = section.blocks | where: "type", "variant_picker" | first %}
+    
+    .product{
+      --pill_bg: {{ variant_picker_block.settings.pill_bg_color | color_to_rgb}};
+      --pill_text: {{ variant_picker_block.settings.pill_text_color | color_to_rgb }};
+      --pill_active_bg: {{ variant_picker_block.settings.pill_active_bg_color | color_to_rgb }};
+      --pill_active_text: {{ variant_picker_block.settings.pill_active_text_color | color_to_rgb }};
     }
 
     @media screen and (min-width: 750px) {
@@ -57,7 +67,8 @@
 
   <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
     <div class="grid__item product__media-wrapper{% if section.settings.media_position == 'right' %} medium-hide large-up-hide{% endif %}">
-      {% render 'product-media-gallery', variant_images: variant_images %}
+      {% comment %} {% render 'product-media-gallery', variant_images: variant_images %} {% endcomment %}
+      {% render 'custom-product-media-gallery', variant_images: variant_images %}
     </div>
     <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       <product-info
@@ -432,6 +443,11 @@
               {% render 'icon-with-text',
                 block: block
               %}
+            {%- when 'product-icons' -%}
+              {% render 'product-icons',
+                product: product,
+                block: block
+              %}
           {%- endcase -%}
         {%- endfor -%}
         <a href="{{ product.url }}" class="link product__view-details animate-arrow">
@@ -475,6 +491,33 @@
       </div>
     </modal-dialog>
   {%- endfor -%}
+
+  {% assign size_charts = section.blocks | where: 'type', 'size-chart' %}
+  
+  <modal-dialog id="PopupModal-{{ variant_picker_block.id }}" class="product-popup-modal size-chart-modal" {{ variant_picker_block.shopify_attributes }}>
+    <div role="dialog" aria-label="{{ block.settings.text }}" aria-modal="true" class="product-popup-modal__content"
+      tabindex="-1">
+      <button id="ModalClose-{{ block.id }}" type="button" class="product-popup-modal__toggle"
+        aria-label="{{ 'accessibility.close' | t }}">
+        {% render 'icon-close' %}
+      </button>
+      <div class="product-popup-modal__content-info">
+        <h1 class="h2">{{ product.title }}</h1>
+        {%- for size_chart in size_charts -%}
+          {% assign tag_downcase = size_chart.settings.product_tag | downcase %}
+          {% assign page_content = size_chart.settings.page.content %}
+          {% for tag in product.tags %}
+            {% assign product_tag_downcase = tag | downcase %}
+            {% if product_tag_downcase == tag_downcase %}
+              {{ page_content }}
+              {% break %}
+            {% endif %}
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </modal-dialog>
+  
 
   {%- if product.media.size > 0 -%}
     <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
@@ -616,6 +659,11 @@
       "limit": 1
     },
     {
+      "type": "product-icons",
+      "name": "t:sections.main-product.blocks.product-icons.name",
+      "limit": 1
+    },
+    {
       "type": "price",
       "name": "t:sections.main-product.blocks.price.name",
       "limit": 1
@@ -715,6 +763,52 @@
           ],
           "default": "button",
           "label": "t:sections.main-product.blocks.variant_picker.settings.picker_type.label"
+        },
+        {
+          "type": "header",
+          "content": "Pills styles"
+        },
+        {
+          "type": "paragraph",
+          "content": "Active Pill"
+        },
+        {
+          "type": "color",
+          "id": "pill_active_bg_color",
+          "label": "Background Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "pill_active_text_color",
+          "label": "Text Color",
+          "default": "#000000"
+        },
+        {
+          "type": "paragraph",
+          "content": "Normal Pill"
+        },
+        {
+          "type": "color",
+          "id": "pill_bg_color",
+          "label": "Background Color",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "pill_text_color",
+          "label": "Text Color",
+          "default": "#000000"
+        },
+        {
+          "type": "header",
+          "content": "Size chart"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_size_chart",
+          "label": "Show Size Chart",
+          "default": false
         }
       ]
     },
@@ -736,6 +830,42 @@
           "default": false,
           "label": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.label",
           "info": "t:sections.main-product.blocks.buy_buttons.settings.show_gift_card_recipient.info"
+        },
+        {
+          "type": "header",
+          "content": "styles"
+        },
+        {
+          "type": "paragraph",
+          "content": "Add To Cart"
+        },
+        {
+          "type": "color",
+          "id": "atc_bg_color",
+          "label": "Add to cart background",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "atc_text_color",
+          "label": "Add to cart background",
+          "default": "#ffffff"
+        },
+        {
+          "type": "paragraph",
+          "content": "Checkout"
+        },
+        {
+          "type": "color",
+          "id": "checkout_bg_color",
+          "label": "Add to cart background",
+          "default": "#000000"
+        },
+        {
+          "type": "color",
+          "id": "checkout_text_color",
+          "label": "Add to cart background",
+          "default": "#ffffff"
         }
       ]
     },
@@ -998,6 +1128,23 @@
           "id": "page",
           "type": "page",
           "label": "t:sections.main-product.blocks.popup.settings.page.label"
+        }
+      ]
+    },
+    {
+      "type": "size-chart",
+      "name": "Size Chart",
+      "settings": [
+        {
+          "type": "text",
+          "id": "product_tag",
+          "default": "tag",
+          "label": "Product Tag"
+        },
+        {
+          "id": "page",
+          "type": "page",
+          "label": "Size Chart Page"
         }
       ]
     },
