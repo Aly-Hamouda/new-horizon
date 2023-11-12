@@ -366,10 +366,10 @@
         }
       }
     },
-    "color_swatches":{
+    "color_swatches": {
       "name": "Color Swatches",
       "settings": {
-        "content": "Color Swatches HEX Codes / Image pattern",
+        "content": "Color Swatches HEX Codes \/ Image pattern",
         "paragraph": "Type your colors like (black: #000) or (black: black-pattern.jpg) .. if you provide an image, you must have an image in the store files with the same Name and File type",
         "paragraph2": "Kindly seperate your colors by (New Line)",
         "color_swatches_colors": {

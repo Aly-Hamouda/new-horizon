@@ -10,6 +10,21 @@
   Usage:
   {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true %}
 {% endcomment %}
+
+{%  liquid 
+  assign atc_bg_color = block.settings.atc_bg_color
+  assign atc_text_color = block.settings.atc_text_color
+  assign checkout_bg_color = block.settings.checkout_bg_color
+  assign checkout_text_color = block.settings.checkout_text_color
+%}
+<style>
+  .product{
+    --atc-bg-color: {{ atc_bg_color }};
+    --atc-text-color: {{ atc_text_color }};
+    --checkout-bg-color: {{ checkout_bg_color }};
+    --checkout-text-color: {{ checkout_text_color }};
+  }
+</style>
 <div {{ block.shopify_attributes }}>
   {%- if product != blank -%}
     {%- liquid

@@ -52,20 +52,21 @@ block: block
 
   {%- if block.settings.picker_type == 'button' -%}
     {%- assign downcased_value = value | downcase -%}
-
-    <input
-      type="radio"
-      id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
-      name="{{ option.name }}"
-      value="{{ value | escape }}"
-      form="{{ product_form_id }}"
-      {% if option.selected_value == value %}checked{% endif %}
-      {% if option_disabled %}class="disabled"{% endif %}>
-    <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
-      <span class="swatch" style="{% render 'color-swatch-style', color_swatch_config: color_swatch_config, value: downcased_value %}"></span>
-      {% comment %} {{ value -}} {% endcomment %}
-      <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
-    </label>
+    <variant-images-input>
+      <input
+        type="radio"
+        id="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}"
+        name="{{ option.name }}"
+        value="{{ value | escape }}"
+        form="{{ product_form_id }}"
+        {% if option.selected_value == value %}checked{% endif %}
+        {% if option_disabled %}class="disabled"{% endif %}>
+      <label for="{{ section.id }}-{{ option.position }}-{{ forloop.index0 }}">
+        <span class="swatch" style="{% render 'color-swatch-style', color_swatch_config: color_swatch_config, value: downcased_value %}"></span>
+        {% comment %} {{ value -}} {% endcomment %}
+        <span class="visually-hidden">{{ 'products.product.variant_sold_out_or_unavailable' | t }}</span>
+      </label>
+    </variant-images-input>
   {%- elsif block.settings.picker_type == 'dropdown' -%}
     <option value="{{ value | escape }}" {% if option.selected_value == value %}selected="selected"{% endif %}>
       {% if option_disabled -%}

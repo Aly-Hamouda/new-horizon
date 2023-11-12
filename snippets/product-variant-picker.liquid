@@ -26,7 +26,29 @@ Usage:
           assign option_down = option.name | downcase
         %}
         <fieldset class="js product-form__input {% if option_down == color_option %}product-form__input-color{% endif %}">
-          <legend class="form__label">{{ option.name }}</legend>
+          <legend class="form__label">
+            <span>
+              {{ option.name }}
+            </span>
+            {% if block.settings.show_size_chart and option_down != color_option %}
+              
+              <modal-opener class="product-popup-modal__opener no-js-hidden quick-add-hidden" data-modal="#PopupModal-{{ block.id }}"
+                {{ block.shopify_attributes }}>
+                <button id="ProductPopup-{{ block.id }}" class="product-popup-modal__button link" type="button"
+                  aria-haspopup="dialog">
+                  <span class="product__size-chart-opener">
+                    <span>
+                      {% render 'icon-size-chart' %}
+                    </span>
+                    <span>{{ 'Size Guide' }}</span>
+                  </span>
+                </button>
+              </modal-opener>
+              <a href="{{ block.settings.page.url }}" class="product-popup-modal__button link no-js">
+                {{- block.settings.text -}}
+              </a>
+            {% endif %}
+          </legend>
           {% if option_down == color_option %}
             {% render 'product-variant-color-options', product: product, option: option, block: block %}
           {% else %}

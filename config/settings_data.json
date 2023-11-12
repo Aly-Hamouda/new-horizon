@@ -116,6 +116,7 @@
     "show_vendor": false,
     "show_cart_note": false,
     "cart_drawer_collection": "",
+    "color_swatches_colors": "yellow: #FFFF00\nred: #FF0000\nblack: #000000\norange: #FFA500\nGREEN: #008000\nOffWhite: #7d7d7d\nBurgundy: burgundy.jpg",
     "sections": {
       "main-password-header": {
         "type": "main-password-header",
